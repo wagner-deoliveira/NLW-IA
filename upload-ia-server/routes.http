@@ -1,0 +1,33 @@
+#  @name get-prompts
+
+GET http://127.0.0.1:42069/prompts
+
+###
+
+# @name upload
+POST http://127.0.0.1:42069/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.mp3"
+Content-Type: audio/mpeg
+
+###
+
+# @name create-transcription
+GET http://127.0.0.1:42069/videos/{uuid}/transcription
+Content-Type: application/json
+
+{
+  "prompt": "test"
+}
+
+###
+
+# @name generate-ia-completion
+GET http://127.0.0.1:42069/ai/complete
+Content-Type: application/json
+
+{
+  "videoId": "something",
+  "temperature": 0.5,
+  "template": "Create a summary from video transcription: '''{transcription}'''"
+}
